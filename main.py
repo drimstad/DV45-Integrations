@@ -21,9 +21,9 @@ mappings = {
     'UN': 'ARCGIS'
 }
 
-versions = ['DV4/5', 'DV6', 'DV7', 'DVStange']
+#versions = ['DV4/5', 'DV6', 'DV7', 'DVStange']
 #versions = ['DV7']
-#ersions = ['DV4/5']
+versions = ['DV4/5']
 
 
 def get_apis(api_string):
@@ -62,7 +62,7 @@ def get_apis(api_string):
 
 if __name__ == '__main__':
 
-    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (9).xlsx'
+    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (10).xlsx'
     EXCEL_SHEET_NAME = 'Integrasjon-Dataflyt status'
 
     workbook = load_workbook(EXCEL_WORKBOOK_NAME)
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     center_alignment = Alignment(horizontal='center')
     for i in range(startrow, endrow):
-        version = worksheet.cell(row=i, column=29).value
+        version = worksheet.cell(row=i, column=30).value
         if not version or version == '' or version in versions:
             name = worksheet.cell(row=i, column=1).value
             if name:
