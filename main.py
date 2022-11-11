@@ -9,6 +9,7 @@ mappings = {
     'RCGIS DROPS': 'DROPS',
     'DIALOGTJENESTE-API': 'DIALOGTJENESTE',
     'DIALOGTJENESTE-UT':  'DIALOGTJENESTE',
+    'EGET LØP': 'PAGERO',
     'IFS': 'IFS CLOUD',
     'IFSCLOUD': 'IFS CLOUD',
     'MCPS-INNBETALINGSFILER': 'MCPS',
@@ -16,6 +17,7 @@ mappings = {
     'NETBAS-MÅLEPUNKT-UT': 'NETBAS',
     'NETBAS-SAMLESKINNENAVN (SØR)': 'NETBAS',
     'NETBAS-TILKNYTNINGSPUNKT-UT': 'NETBAS',
+    'PAGERO?': 'PAGERO',
     'STATNETT-MARGINALTAPSNAVN (NORD)': 'STATNETT',
     'STATNETT-MARGINALTAPSSATSER (NORD)': 'STATNETT',
     'UN': 'ARCGIS'
@@ -33,8 +35,10 @@ def get_apis(api_string):
     the_name = ''
     apis = []
     if type(api_string) == str:
-        if ',' in api_string:
+        if ',' in api_string or '\n' in api_string:
+            api_string = api_string.replace('\n', ', ')
             funcs = list(map(str.strip, api_string.split(',')))
+#            funcs = list(map(str.strip, api_string.split()))
         else:
             #                print(api)
             funcs = [api_string]
@@ -115,15 +119,18 @@ if __name__ == '__main__':
         version = worksheet.cell(row=i, column=30).value
         if not version or version == '' or version in versions:
             name = worksheet.cell(row=i, column=1).value
+            direction = worksheet.cell(row=i, column=3).value
             if name:
                 name = name.upper()
                 functions = get_apis(worksheet.cell(row=i, column=4).value)
                 if functions:
                     for api in functions:
-                        integrations_overview_sheet.cell(row=sorted_systems.index(name) + 2, column=sorted_systems.index(api) + 2).value = 'X'
-                        integrations_overview_sheet.cell(row=sorted_systems.index(name) + 2, column=sorted_systems.index(api) + 2).alignment = center_alignment
-                        integrations_overview_sheet.cell(row=sorted_systems.index(api) + 2, column=sorted_systems.index(name) + 2).value = 'X'
-                        integrations_overview_sheet.cell(row=sorted_systems.index(api) + 2, column=sorted_systems.index(name) + 2).alignment = center_alignment
+                        if direction != 'Inn':
+                            integrations_overview_sheet.cell(row=sorted_systems.index(name) + 2, column=sorted_systems.index(api) + 2).value = 'X'
+                            integrations_overview_sheet.cell(row=sorted_systems.index(name) + 2, column=sorted_systems.index(api) + 2).alignment = center_alignment
+                        if direction != 'Ut':
+                            integrations_overview_sheet.cell(row=sorted_systems.index(api) + 2, column=sorted_systems.index(name) + 2).value = 'X'
+                            integrations_overview_sheet.cell(row=sorted_systems.index(api) + 2, column=sorted_systems.index(name) + 2).alignment = center_alignment
 
 
     grey_fill = PatternFill(fill_type='solid', start_color='DDDDDD', end_color='DDDDDD')
@@ -131,9 +138,9 @@ if __name__ == '__main__':
         integrations_overview_sheet.cell(row=i, column=i).fill = grey_fill
 
     grey_fill = PatternFill(fill_type='solid', start_color='EEEEEE', end_color='EEEEEE')
-    integrations_table_sheet.cell(row=1, column=1).value = "System A"
+    integrations_table_sheet.cell(row=1, column=1).value = "Fra"
     integrations_table_sheet.cell(row=1, column=1).fill = grey_fill
-    integrations_table_sheet.cell(row=1, column=2).value = "System B"
+    integrations_table_sheet.cell(row=1, column=2).value = "Til"
     integrations_table_sheet.cell(row=1, column=2).fill = grey_fill
     integrations_table_sheet.cell(row=1, column=3).value = "Forbindelse"
     integrations_table_sheet.cell(row=1, column=3).fill = grey_fill
@@ -144,7 +151,7 @@ if __name__ == '__main__':
     the_row = 2
 
     for i in range(2, len(sorted_systems)+2):
-        for j in range(i, len(sorted_systems)+2):
+        for j in range(2, len(sorted_systems)+2):
             if integrations_overview_sheet.cell(row=i, column=j).value == "X":
                 integrations_table_sheet.cell(row=the_row, column=1).value = sorted_systems[i-2]
                 integrations_table_sheet.cell(row=the_row, column=2).value = sorted_systems[j-2]
