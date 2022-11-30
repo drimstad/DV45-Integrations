@@ -17,16 +17,25 @@ mappings = {
     'NETBAS-MÅLEPUNKT-UT': 'NETBAS',
     'NETBAS-SAMLESKINNENAVN (SØR)': 'NETBAS',
     'NETBAS-TILKNYTNINGSPUNKT-UT': 'NETBAS',
-    'PAGERO?': 'PAGERO',
+    'PAGERO ?': 'PAGERO',
     'STATNETT-MARGINALTAPSNAVN (NORD)': 'STATNETT',
     'STATNETT-MARGINALTAPSSATSER (NORD)': 'STATNETT',
-    'UN': 'ARCGIS'
+#    'UN': 'ARCGIS',
+    '????': '????????'
 }
 
 #versions = ['DV4/5', 'DV6', 'DV7', 'DVStange']
 #versions = ['DV7']
 versions = ['DV4/5']
 
+# System in column A
+system_column = 1
+#Direction in column C
+direction_column = 3
+# Dependent om API in column D
+api_column = 4
+# Version in column AF
+version_column = 32
 
 def get_apis(api_string):
     funcs = []
@@ -66,7 +75,7 @@ def get_apis(api_string):
 
 if __name__ == '__main__':
 
-    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (10).xlsx'
+    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (16).xlsx'
     EXCEL_SHEET_NAME = 'Integrasjon-Dataflyt status'
 
     workbook = load_workbook(EXCEL_WORKBOOK_NAME)
@@ -79,7 +88,7 @@ if __name__ == '__main__':
     name = ''
     version = ''
     for i in range(startrow, endrow):
-        version = worksheet.cell(row=i, column=29).value
+        version = worksheet.cell(row=i, column=32).value
         if not version or version == '' or version in versions:
             name = worksheet.cell(row=i, column=1).value
             if name:
@@ -116,7 +125,7 @@ if __name__ == '__main__':
 
     center_alignment = Alignment(horizontal='center')
     for i in range(startrow, endrow):
-        version = worksheet.cell(row=i, column=30).value
+        version = worksheet.cell(row=i, column=32).value
         if not version or version == '' or version in versions:
             name = worksheet.cell(row=i, column=1).value
             direction = worksheet.cell(row=i, column=3).value
