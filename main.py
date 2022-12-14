@@ -6,7 +6,7 @@ from openpyxl.worksheet._write_only import WriteOnlyWorksheet
 from openpyxl.worksheet.worksheet import Worksheet
 
 mappings = {
-    'RCGIS DROPS': 'DROPS',
+    'ARCGIS DROPS': 'DROPS',
     'DIALOGTJENESTE-API': 'DIALOGTJENESTE',
     'DIALOGTJENESTE-UT':  'DIALOGTJENESTE',
     'EGET LØP': 'PAGERO',
@@ -14,9 +14,13 @@ mappings = {
     'IFSCLOUD': 'IFS CLOUD',
     'MCPS-INNBETALINGSFILER': 'MCPS',
     'MCPS-REMITTERINGSFILER': 'MCPS',
-    'NETBAS-MÅLEPUNKT-UT': 'NETBAS',
-    'NETBAS-SAMLESKINNENAVN (SØR)': 'NETBAS',
-    'NETBAS-TILKNYTNINGSPUNKT-UT': 'NETBAS',
+    'MSI': 'MSIM',
+    'MÅLEVERDI': 'MÅLEVERDI-API',
+    'MÅLEVERDIAPI': 'MÅLEVERDI-API',
+    'NETBAS': 'NETBAS (NORD)',
+    'NETBAS-MÅLEPUNKT-UT': 'NETBAS (NORD)',
+    'NETBAS-SAMLESKINNENAVN (SØR)': 'NETBAS (SØR)',
+    'NETBAS-TILKNYTNINGSPUNKT-UT': 'NETBAS (NORD)',
     'PAGERO ?': 'PAGERO',
     'STATNETT-MARGINALTAPSNAVN (NORD)': 'STATNETT',
     'STATNETT-MARGINALTAPSSATSER (NORD)': 'STATNETT',
@@ -75,7 +79,7 @@ def get_apis(api_string):
 
 if __name__ == '__main__':
 
-    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (16).xlsx'
+    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (18).xlsx'
     EXCEL_SHEET_NAME = 'Integrasjon-Dataflyt status'
 
     workbook = load_workbook(EXCEL_WORKBOOK_NAME)
