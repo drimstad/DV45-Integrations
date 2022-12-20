@@ -31,6 +31,7 @@ mappings = {
 #versions = ['DV4/5', 'DV6', 'DV7', 'DVStange']
 #versions = ['DV7']
 versions = ['DV4/5']
+skip_blanks = False
 
 # System in column A
 system_column = 1
@@ -76,10 +77,15 @@ def get_apis(api_string):
             return None
     return None
 
+def include_version(version):
+    if not skip_blanks and (not version or version == ''):
+        return True
+    return version in versions
+
 
 if __name__ == '__main__':
 
-    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (18).xlsx'
+    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (19).xlsx'
     EXCEL_SHEET_NAME = 'Integrasjon-Dataflyt status'
 
     workbook = load_workbook(EXCEL_WORKBOOK_NAME)
@@ -93,7 +99,7 @@ if __name__ == '__main__':
     version = ''
     for i in range(startrow, endrow):
         version = worksheet.cell(row=i, column=32).value
-        if not version or version == '' or version in versions:
+        if include_version(version):
             name = worksheet.cell(row=i, column=1).value
             if name:
                 systems.add(name.upper())
@@ -130,7 +136,7 @@ if __name__ == '__main__':
     center_alignment = Alignment(horizontal='center')
     for i in range(startrow, endrow):
         version = worksheet.cell(row=i, column=32).value
-        if not version or version == '' or version in versions:
+        if include_version(version):
             name = worksheet.cell(row=i, column=1).value
             direction = worksheet.cell(row=i, column=3).value
             if name:
