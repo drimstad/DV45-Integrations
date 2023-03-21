@@ -10,6 +10,7 @@ mappings = {
     'DIALOGTJENESTE-API': 'DIALOGTJENESTE',
     'DIALOGTJENESTE-UT':  'DIALOGTJENESTE',
     'EGET LØP': 'PAGERO',
+    'HES_EXTENSIONS': 'HES',
     'IFS': 'IFS CLOUD',
     'IFSCLOUD': 'IFS CLOUD',
     'MCPS-INNBETALINGSFILER': 'MCPS',
@@ -31,7 +32,7 @@ mappings = {
 #versions = ['DV4/5', 'DV6', 'DV7', 'DVStange']
 #versions = ['DV7']
 versions = ['DV4/5']
-skip_blanks = False
+skip_blanks = True
 
 # System in column A
 system_column = 1
@@ -85,7 +86,7 @@ def include_version(version):
 
 if __name__ == '__main__':
 
-    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (19).xlsx'
+    EXCEL_WORKBOOK_NAME = '/users/djr/Downloads/DV4_Status_Integrasjoner (26).xlsx'
     EXCEL_SHEET_NAME = 'Integrasjon-Dataflyt status'
 
     workbook = load_workbook(EXCEL_WORKBOOK_NAME)
